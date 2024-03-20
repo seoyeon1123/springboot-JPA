@@ -12,24 +12,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
 
-    //상품 저장
-    public void save(Item item){
-        if(item.getId() == null){
+    public void save(Item item) {
+        if(item.getId() == null)
             em.persist(item);
-        } else {
-            em.merge(item);
-        }
+        else em.merge(item);
     }
 
-    //상품 하나 조회
-    public Item findOne(Long id){
+    public Item findOne(Long id) {
         return em.find(Item.class, id);
     }
 
-    //상품 전체 조회
-    public List<Item> findAll(){
-       return em.createQuery("select i from  Item  i", Item.class).getResultList();
+    public List<Item> findAll() {
+        return em.createQuery("select i from Item i", Item.class)
+                .getResultList();
     }
 }
